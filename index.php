@@ -214,7 +214,7 @@
 <head>
   <meta charset="utf-8">
   <title>LOLShell <?=$appVersion?></title>
-  <meta name="description" content="LOLShell v<?=$appVersion?>">
+  <meta name="description" content="LOLShell <?=$appVersion?> by Contra">
   <meta name="author" content="Contra">
 
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/dark-hive/jquery-ui.css">

